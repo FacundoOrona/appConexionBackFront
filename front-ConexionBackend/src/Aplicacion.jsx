@@ -1,12 +1,15 @@
 import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LoginPage } from './pages/loginPage';
+import { RegisterPage } from './pages/RegisterPage';
 
 export const Aplicacion = () => {
   return (
-    <>
-    <div className="container mt-5">
-      <h1 className="text-primary">¡Hola React con Bootstrap!</h1>
-      <button className="btn btn-success">Haz clic</button>
-    </div> 
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </Router>
   )
 }
