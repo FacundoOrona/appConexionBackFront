@@ -1,7 +1,7 @@
-package com.tuapp.backend.controller;
+package com.AplicacionConexionFront.backendConexion.controller;
 
-import com.tuapp.backend.model.Usuario;
-import com.tuapp.backend.repository.UsuarioRepository;
+import com.AplicacionConexionFront.backendConexion.model.Usuario;
+import com.AplicacionConexionFront.backendConexion.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

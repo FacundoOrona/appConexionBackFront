@@ -1,4 +1,4 @@
-package com.tuapp.backend.model;
+package com.AplicacionConexionFront.backendConexion.model;
 
 import jakarta.persistence.*;
 import lombok.*;
