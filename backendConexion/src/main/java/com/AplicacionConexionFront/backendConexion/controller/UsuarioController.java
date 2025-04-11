@@ -7,22 +7,62 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/usuarios")
-@CrossOrigin(origins = "http://localhost:5173")
+@RestController //Indica que esta clase responde con datos JSON (no vistas HTML).
+@RequestMapping("/api/usuarios") //Todo lo que empiece con /api/usuarios se maneja acá.
+@CrossOrigin(origins = "http://localhost:5173") //Permite que tu frontend (en el puerto 5173) se conecte con este backend (en 8080).
 public class UsuarioController {
 
+    //Instancio el repositorio de Usuario
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        //REGISTRO DE USUARIO
+    @PostMapping //Escucha un POST a /api/usuarios.
+    public Usuario crearUsuario(@RequestBody Usuario usuario) { //@RequestBody: Recibe un objeto JSON desde el frontend y lo convierte a Usuario
+        return usuarioRepository.save(usuario); //Guarda ese usuario en la base de datos. Devuelve el usuario guardado (útil para confirmar que se guardó bien).
     }
 
-    @GetMapping
-    public List<Usuario> obtenerUsuarios() {
-        return usuarioRepository.findAll();
+        //EJEMPLO PARA LOGIN Con un metodo post modificado para diferenciar del anterior desde el frontend.
+    /*
+     @PostMapping("/login") // POST a /api/usuarios/login
+    public ResponseEntity<?> login(@RequestBody Usuario loginData) {
+        Usuario usuario = usuarioRepository.findByUsername(loginData.getUsername());
+            if (usuario != null && usuario.getPassword().equals(loginData.getPassword())) {
+                return ResponseEntity.ok("Login exitoso");
+            } 
+            else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+            }
     }
+    */
+    
+
+        //SI NO QUIERO REGISTRAR USUARIOS DUPLICADOS: Haciendo uso de existsByUsername de Usuario repository.
+    /*@PostMapping
+    public ResponseEntity<?> crearUsuario(@RequestBody Usuario usuario) {
+         if (usuarioRepository.existsByUsername(usuario.getUsername())) {
+            return ResponseEntity
+                .badRequest()
+                .body("El nombre de usuario ya está en uso");
+    }
+
+        Usuario nuevoUsuario = usuarioRepository.save(usuario);
+        return ResponseEntity.ok(nuevoUsuario);
+    } */
+
+        //OBTENER TODOS LOS USUARIS
+    @GetMapping //Escucha un GET a /api/usuarios.
+    public List<Usuario> obtenerUsuarios() { //Obtiene un array de usuarios en formato JSON
+        return usuarioRepository.findAll(); //findAll trae todos los usuarios.
+    }
+
+    //EJEMPLO OBTENER UN USURIO POR ID, modificando el GetMapping para poder llamar distintos get y poder diferenciarlos en el fetch del frontend
+    /* 
+    @GetMapping("/{id}") // GET a /api/usuarios/5
+    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
+        return usuarioRepository.findById(id)
+            .map(usuario -> ResponseEntity.ok(usuario))
+            .orElse(ResponseEntity.notFound().build());
+    } */
 }
 
