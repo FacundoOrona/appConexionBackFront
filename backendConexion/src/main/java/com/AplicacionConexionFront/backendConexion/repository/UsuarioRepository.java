@@ -9,6 +9,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Usuario findByUsername(String username);
 
+    Usuario findByUsernameAndPassword(String username, String password);
+
+
 }
 
 /*Te da métodos ya hechos como:
