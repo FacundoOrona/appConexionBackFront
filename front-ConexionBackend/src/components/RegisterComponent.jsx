@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const RegisterComponent = () => {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (e) => { //Se ejecuta cuando de click a Registrar
+        e.preventDefault(); //Evita que la pagina se recargue
 
         const userData = { username, password };
 
@@ -16,12 +18,14 @@ export const RegisterComponent = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(userData),
+                body: JSON.stringify(userData), //Envio los datos al backend 
             });
 
-            if (response.ok) {
+            if (response.ok) { //Si el backend responde bien (código 200–299), muestra un alert de éxito
                 alert('Usuario registrado con éxito');
-                // podés redirigir o limpiar campos acá si querés
+                setUsername('');
+                setPassword('');
+                navigate('/');
             } else {
                 alert('Error al registrar el usuario');
             }
