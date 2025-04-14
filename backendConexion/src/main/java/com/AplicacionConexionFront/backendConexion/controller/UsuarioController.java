@@ -4,6 +4,7 @@ import com.AplicacionConexionFront.backendConexion.model.Usuario;
 import com.AplicacionConexionFront.backendConexion.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.*;
 
 @RestController // Indica que esta clase responde con datos JSON (no vistas HTML).
 @RequestMapping("/api/usuarios") // Todo lo que empiece con /api/usuarios se maneja acá.
@@ -33,6 +34,12 @@ public class UsuarioController {
         } else {
             throw new RuntimeException("Usuario o contraseña incorrectos");
         }
+    }
+
+    // LISTAR TODOS LOS USUARIOS
+    @GetMapping
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
     }
 
 }
