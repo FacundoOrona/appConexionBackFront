@@ -55,19 +55,28 @@ export const SesionIniPage = () => {
 
     return (
         <>
-            <h2>¡Bienvenido, {username}!</h2>
-
-            <button onClick={handleLogout} className="btn btn-danger">
-                Cerrar sesión
-            </button>
             <div className="container mt-5">
-                <h2 className="mb-4">Administacion de usuarios y passwords</h2>
-                <UsuariosTable
-                    usuarios={usuarios}
-                    onDelete={handleDelete}
-                    onUpdate={handleUpdate}
-                />
+                <div className="d-flex justify-content-between align-items-center mb-4 p-3 bg-white shadow rounded">
+                    <div>
+                        <h2 className="mb-1">👋 ¡Bienvenido, <span className="text-primary">{username}</span>!</h2>
+                        <p className="text-muted mb-0">Panel de administración de usuarios y contraseñas</p>
+                    </div>
+                    <button onClick={handleLogout} className="btn btn-outline-danger">
+                        <i className="bi bi-box-arrow-right me-2"></i>
+                        Cerrar sesión
+                    </button>
+                </div>
+
+                <div className="card shadow p-4">
+                    <h4 className="mb-4 text-center text-secondary">📋 Administración de usuarios</h4>
+                    <UsuariosTable
+                        usuarios={usuarios}
+                        onDelete={handleDelete}
+                        onUpdate={handleUpdate}
+                    />
+                </div>
             </div>
+
         </>
     )
 }
