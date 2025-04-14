@@ -12,8 +12,6 @@ export const SesionIniPage = () => {
         navigate('/');
     };
 
-
-
     return (
         <>
             <h2>¡Bienvenido, {username}!</h2>
