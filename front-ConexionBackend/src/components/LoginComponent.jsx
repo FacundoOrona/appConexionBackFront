@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { saveUserSession } from '../utils/session';
 
 export const LoginComponent = () => {
     const [username, setUsername] = useState('');
@@ -24,8 +25,7 @@ export const LoginComponent = () => {
                 const user = await response.json();
                 alert('Inicio de sesión exitoso');
                 
-                // Guardamos el nombre de usuario en localStorage
-                localStorage.setItem('username', user.username);
+                saveUserSession(user.username);
             
                 navigate('/inicio');
             } else {
