@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserSession, clearUserSession } from '../utils/session';
 import { UsuariosTable } from '../components/UsuariosTable';
 import { useEffect, useState } from 'react';
+import { obtenerUsuarios, eliminarUsuario, actualizarUsuario } from '../services/usuarioService';
 
 export const SesionIniPage = () => {
 
@@ -15,42 +16,37 @@ export const SesionIniPage = () => {
         navigate('/');
     };
 
-    const cargarUsuarios = () => {
-        fetch('http://localhost:8080/api/usuarios')
-            .then(res => res.json())
-            .then(data => setUsuarios(data))
-            .catch(error => console.error('Error al obtener usuarios:', error));
+    const cargarUsuarios = async () => {
+        try {
+            const data = await obtenerUsuarios();
+            setUsuarios(data);
+        } catch (error) {
+            console.error('Error al obtener usuarios:', error);
+        }
     };
 
     useEffect(() => {
         cargarUsuarios();
     }, []);
 
-    const handleDelete = (id) => {
-        fetch(`http://localhost:8080/api/usuarios/${id}`, {
-            method: 'DELETE',
-        })
-            .then(() => {
-                alert('Usuario eliminado correctamente');
-                cargarUsuarios();
-            })
-            .catch(error => console.error('Error al eliminar usuario:', error));
+    const handleDelete = async (id) => {
+        try {
+            await eliminarUsuario(id);
+            alert('Usuario eliminado correctamente');
+            cargarUsuarios();
+        } catch (error) {
+            console.error('Error al eliminar usuario:', error);
+        }
     };
 
-    const handleUpdate = (id, updatedData) => {
-        fetch(`http://localhost:8080/api/usuarios/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(updatedData),
-        })
-            .then(res => res.json())
-            .then(() => {
-                alert('Usuario actualizado correctamente');
-                cargarUsuarios();
-            })
-            .catch(error => console.error('Error al actualizar usuario:', error));
+    const handleUpdate = async (id, updatedData) => {
+        try {
+            await actualizarUsuario(id, updatedData);
+            alert('Usuario actualizado correctamente');
+            cargarUsuarios();
+        } catch (error) {
+            console.error('Error al actualizar usuario:', error);
+        }
     };
 
     return (
