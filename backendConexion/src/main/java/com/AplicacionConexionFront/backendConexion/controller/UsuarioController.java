@@ -42,4 +42,22 @@ public class UsuarioController {
         return usuarioRepository.findAll();
     }
 
+    // ELIMINAR USUARIO POR ID
+    @DeleteMapping("/{id}")
+    public void eliminarUsuario(@PathVariable Long id) {
+        usuarioRepository.deleteById(id);
+    }
+
+    // ACTUALIZAR USUARIO
+    @PutMapping("/{id}")
+    public Usuario actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuarioActualizado) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
+
+        usuario.setUsername(usuarioActualizado.getUsername());
+        usuario.setPassword(usuarioActualizado.getPassword());
+
+        return usuarioRepository.save(usuario);
+    }
+
 }
