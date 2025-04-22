@@ -1,5 +1,8 @@
+ DEPENDENCIAS
 - Agregar dependencias JWT
 - Agregar dependencias MapStruct
+
+ FUNCIONALIDAD 
 - Aplicar DTO y DtoRequest a entidades
 - Aplicar DTO a las funcionalidades 
 - Separar la funcionalidad del controller a Service
