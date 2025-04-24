@@ -4,6 +4,7 @@ import com.AplicacionConexionFront.backendConexion.model.Usuario;
 import com.AplicacionConexionFront.backendConexion.entidadesDTO.UsuarioRequestDTO;
 import com.AplicacionConexionFront.backendConexion.entidadesDTO.UsuarioDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public interface UsuarioMapper {
 
     // De DTO de entrada (registro) a entidad
+    @Mapping(target = "id", ignore = true)
     Usuario toUsuario(UsuarioRequestDTO dto);
 
     // De entidad a DTO de salida (respuesta)
